@@ -1,11 +1,11 @@
 import React from 'react';
-import OfferCard from '../offer-card/offer-card';
+import OffersList from '../offers/offers-list/offers-list';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import offerProp from '../offers/offer-card/offer-card.prop';
 
-const RENDER_CARDS_COUNT = 5;
 
-function Main({placeCount}) {
+function Main({offers}) {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -78,7 +78,7 @@ function Main({placeCount}) {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placeCount} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -94,14 +94,10 @@ function Main({placeCount}) {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {
-                  new Array(RENDER_CARDS_COUNT).fill(null).map((it, i) => <OfferCard key = {i.toString()}/>)
-                }
-              </div>
+              <OffersList offers={offers}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map"/>
             </div>
           </div>
         </div>
@@ -111,7 +107,9 @@ function Main({placeCount}) {
 }
 
 Main.propTypes = {
-  placeCount: PropTypes.number.isRequired,
+  offers: PropTypes.arrayOf(
+    PropTypes.oneOfType([offerProp]).isRequired,
+  ).isRequired,
 };
 
 export default Main;

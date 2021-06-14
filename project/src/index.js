@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {OFFERS} from './mocks/offers';
+import {adaptOfferToClient} from './utils/utils';
 import App from './components/app/app';
 
-const MainInfo = {
-  PLACE_COUNT: 200,
-};
+const offers = OFFERS.map((offer) => adaptOfferToClient(offer));
 
 ReactDOM.render(
   <React.StrictMode>
     <App
-      placeCount = {MainInfo.PLACE_COUNT}
+      offers = {offers}
     />
   </React.StrictMode>,
 
