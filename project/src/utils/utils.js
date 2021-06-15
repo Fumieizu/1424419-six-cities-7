@@ -6,7 +6,7 @@ const adaptOfferToClient = (offer) => {
     ...offer,
     isFavorite: offer.is_favorite,
     isPremium: offer.is_premium,
-    maxAdult: offer.max_adults,
+    maxAdults: offer.max_adults,
     previewImage: offer.preview_image,
     host: {
       avatarUrl: offer.host.avatar_url,
