@@ -79,7 +79,7 @@ export const OFFERS = [
     'max_adults': 3,
     'preview_image': 'img/apartment-03.jpg',
     'type': 'House',
-    'goods': ['Wi-Fi', 'Fridge', 'Dishwasher', 'Towels', 'Baby seat', 'Cabel TV','Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
+    'goods': ['Wi-Fi', 'Fridge', 'Towels', 'Baby seat', 'Cabel TV','Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     'images': ['img/apartment-03.jpg'],
     'is_favorite': false,
     'is_premium': false,

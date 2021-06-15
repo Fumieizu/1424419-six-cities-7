@@ -25,7 +25,6 @@ function RoomReviewsForm() {
               key={value}
               value={value}
               title={RatingTitle[value]}
-              currentRating={form.ratingValue}
               onChangeHandler={(target) => setForm({
                 ...form,
                 ratingValue: target.value,

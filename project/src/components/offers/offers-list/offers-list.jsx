@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import OfferCard from '../offer-card/offer-card';
 import offerProp from '../offer-card/offer-card.prop';
 import {CardType} from '../../../const';
-
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 
 function OffersList({offers}) {
@@ -26,7 +25,9 @@ function OffersList({offers}) {
 }
 
 OffersList.propTypes = {
-  offers: offerProp,
+  offers: PropTypes.arrayOf(
+    PropTypes.oneOfType([offerProp]).isRequired,
+  ).isRequired,
 };
 
 export default OffersList;

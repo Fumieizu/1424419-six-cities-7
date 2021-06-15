@@ -17,7 +17,7 @@ export default PropTypes.shape({
   rating: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
   bedrooms: PropTypes.number.isRequired,
-  maxAdults: PropTypes.number.isRequired,
+  maxAdults: PropTypes.number,
   price: PropTypes.number.isRequired,
   goods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   host: PropTypes.shape({
