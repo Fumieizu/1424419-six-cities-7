@@ -20,7 +20,7 @@ function OfferCard({ offer, onMouseEnter, cardType = CardType.CITIES, isActive =
   const {id, title, price, rating, type, previewImage, isPremium, isFavorite} = offer;
   return (
     <article
-      className={`${cardType}__card place-card`}
+      className={`${cardType}${cardType === CardType.CITIES ? '__place-card' : '__card'} place-card`}
       onMouseEnter={cardType === CardType.CITIES ? () => onMouseEnter(offer) : null}
     >
 
@@ -61,7 +61,7 @@ function OfferCard({ offer, onMouseEnter, cardType = CardType.CITIES, isActive =
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.OFFER}/${id}`}>{title}</Link>
+          <Link to={`${AppRoute.OFFER}/${id}`}>{title} {isActive && '(active)'}</Link> {/*<-временно*/}
         </h2>
         <p className="place-card__type">{OfferType[type]}</p>
       </div>
