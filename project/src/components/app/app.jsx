@@ -3,27 +3,32 @@ import Main from '../main/main';
 import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import Favorites from '../favorites/favorites';
-import Room from '../room/room';
-import SignIn from '../sign-in/sign-in';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
+import Favorites from '../pages/favorites/favorites';
+import Room from '../pages/room/room';
+import SignIn from '../pages/sign-in/sign-in';
+import NotFoundScreen from '../pages/not-found-screen/not-found-screen';
+import offerProp from '../offers/offer-card/offer-card.prop';
 
-const OFFER_ID = 'id';
 
-function App({placeCount}) {
+function App({offers}) {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
-          <Main placeCount={placeCount} />
+          <Main offers={offers}/>
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
-          <Favorites/>
+          <Favorites offers={offers.filter((offer) => offer.isFavorite)}/>
         </Route>
         <Route exect path={AppRoute.LOGIN}>
           <SignIn/>
         </Route>
-        <Route exact path={`${AppRoute.OFFER}/:${OFFER_ID}`} component={Room}/>
+        <Route exact path={`${AppRoute.OFFER}/:id`}
+          render={(props) => {
+            const offer = offers.find(({id}) => id.toString() === props.match.params.id);
+            return <Room filteredOffer={offer} offers={offers}/>;
+          }}
+        />
         <Route>
           <NotFoundScreen/>
         </Route>
@@ -33,7 +38,17 @@ function App({placeCount}) {
 }
 
 App.propTypes = {
-  placeCount: PropTypes.number.isRequired,
+  offers: PropTypes.arrayOf(
+    PropTypes.oneOfType([offerProp]).isRequired,
+  ),
+  match: PropTypes.shape({
+    isExact: PropTypes.bool.isRequired,
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+    path: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+  }),
 };
 
 export default App;
