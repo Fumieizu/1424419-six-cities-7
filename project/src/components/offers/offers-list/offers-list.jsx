@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import OfferCard from '../offer-card/offer-card';
 import offerProp from '../offer-card/offer-card.prop';
 import {CardType} from '../../../const';
 import PropTypes from 'prop-types';
 
 
-function OffersList({offers}) {
-  const  [activeOfferId, setActiveOfferId] = useState('');
+function OffersList({offers, activeOffer, handleMouseEnter}) {
   return (
     <div className="cities__places-list places__list tabs__content">
       {
@@ -15,8 +14,8 @@ function OffersList({offers}) {
             key={offer.id}
             cardType={CardType.CITIES}
             offer={offer}
-            isActive={activeOfferId === offer.id}
-            onMouseEnter={() => (setActiveOfferId(offer.id))}
+            isActive={offer.id === activeOffer}
+            onMouseEnter={handleMouseEnter}
           />
         ))
       }
@@ -28,6 +27,11 @@ OffersList.propTypes = {
   offers: PropTypes.arrayOf(
     PropTypes.oneOfType([offerProp]).isRequired,
   ).isRequired,
+  activeOffer: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.shape({}),
+  ]).isRequired,
+  handleMouseEnter: PropTypes.func,
 };
 
 export default OffersList;

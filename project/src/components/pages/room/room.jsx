@@ -45,9 +45,8 @@ function Room ({offers, filteredOffer}) {
 
       <main className="page__main page__main--property">
         <section className="property">
-
+          <RoomGallery images={images}/>
           <div className="property__container container">
-            <RoomGallery images={images}/>
             <div className="property__wrapper">
               {
                 isPremium && (
@@ -60,7 +59,7 @@ function Room ({offers, filteredOffer}) {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={`${isFavorite && 'property__bookmark-button--active'} property__bookmark-button button`} type="button">
+                <button className={`${isFavorite ? 'property__bookmark-button--active' : ''} property__bookmark-button button`} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"/>
                   </svg>

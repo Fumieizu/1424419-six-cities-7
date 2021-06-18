@@ -18,10 +18,12 @@ const ImgSizeType = {
 
 function OfferCard({ offer, onMouseEnter, cardType = CardType.CITIES, isActive = false }) {
   const {id, title, price, rating, type, previewImage, isPremium, isFavorite} = offer;
+
   return (
     <article
       className={`${cardType}${cardType === CardType.CITIES ? '__place-card' : '__card'} place-card`}
-      onMouseEnter={cardType === CardType.CITIES ? () => onMouseEnter(offer) : null}
+      onMouseEnter={cardType === CardType.CITIES ? () => onMouseEnter(offer.id) : null}
+      onMouseLeave={cardType === CardType.CITIES ? () => onMouseEnter({}) : null}
     >
 
       {(isPremium && cardType === CardType.CITIES)
