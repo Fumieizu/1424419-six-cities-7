@@ -18,4 +18,15 @@ const CardType = {
   NEAR_PLACES: 'near-places',
 };
 
-export {AppRoute, OfferType, CardType};
+const Cities = {
+  AMSTERDAM: {
+    name: 'Amsterdam',
+    location: {
+      latitude: 52.38333,
+      longitude: 4.9,
+      zoom: 12,
+    },
+  },
+};
+
+export {AppRoute, OfferType, CardType, Cities};
