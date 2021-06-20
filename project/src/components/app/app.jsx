@@ -8,9 +8,11 @@ import Room from '../pages/room/room';
 import SignIn from '../pages/sign-in/sign-in';
 import NotFoundScreen from '../pages/not-found-screen/not-found-screen';
 import offerProp from '../offers/offer-card/offer-card.prop';
+import reviewProp from '../pages/room/review/review-prop';
 
 
-function App({offers}) {
+function App({offers, reviews}) {
+
   return (
     <BrowserRouter>
       <Switch>
@@ -26,7 +28,7 @@ function App({offers}) {
         <Route exact path={`${AppRoute.OFFER}/:id`}
           render={(props) => {
             const offer = offers.find(({id}) => id.toString() === props.match.params.id);
-            return <Room filteredOffer={offer} offers={offers}/>;
+            return <Room filteredOffer={offer} offers={offers} reviews={reviews}/>;
           }}
         />
         <Route>
@@ -49,6 +51,9 @@ App.propTypes = {
     path: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
   }),
+  reviews: PropTypes.arrayOf(
+    PropTypes.oneOfType([reviewProp]).isRequired,
+  ),
 };
 
 export default App;

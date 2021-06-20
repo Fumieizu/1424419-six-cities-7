@@ -104,7 +104,7 @@ function Main({offers}) {
                 <Map
                   offers={offers}
                   activeOffer={activeOffer}
-                  city={Cities.AMSTERDAM}
+                  city={Cities.AMSTERDAM.location}
                 />
               </section>
             </div>

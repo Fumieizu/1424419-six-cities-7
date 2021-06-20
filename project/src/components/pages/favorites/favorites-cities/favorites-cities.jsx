@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import offerProp from '../../../offers/offer-card/offer-card.prop';
-import OfferCard from '../../../offers/offer-card/offer-card';
+import OffersList from '../../../offers/offers-list/offers-list';
 import {CardType} from '../../../../const';
 
 function FavoritesCities({city, offers}) {
@@ -15,17 +15,7 @@ function FavoritesCities({city, offers}) {
           </Link>
         </div>
       </div>
-      <div className="favorites__places">
-        {
-          offers.map((offer) => (
-            <OfferCard
-              key={offer.id}
-              offer={offer}
-              cardType={CardType.FAVORITES}
-            />
-          ))
-        }
-      </div>
+      <OffersList offers={offers} type={CardType.FAVORITES}/>
     </li>
   );
 }
