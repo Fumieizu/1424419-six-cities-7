@@ -24,7 +24,20 @@ const adaptOfferToClient = (offer) => {
   return adaptedOffer;
 };
 
+const adaptReviewToClient = (review) => {
+  const adaptedReview = {
+    ...review,
+    user: {
+      avatarUrl: review.user.avatar_url,
+      id: review.user.id,
+      isPro: review.user.is_pro,
+      name: review.user.name,
+    },
+  };
+
+  return adaptedReview;
+};
 
 const getRatingPercentage = (rating) => rating * MAX_PERCENTAGE / MAX_RATING;
 
-export {adaptOfferToClient, getRatingPercentage};
+export {adaptOfferToClient, getRatingPercentage, adaptReviewToClient};

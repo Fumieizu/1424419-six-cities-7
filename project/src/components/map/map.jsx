@@ -59,15 +59,8 @@ Map.propTypes = {
   activeOffer: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.shape({}),
-  ]).isRequired,
-  city: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    location: PropTypes.shape({
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired,
-      zoom: PropTypes.number.isRequired,
-    }).isRequired,
-  }).isRequired,
+  ]),
+  city: PropTypes.objectOf(PropTypes.number.isRequired),
 };
 
 export default Map;

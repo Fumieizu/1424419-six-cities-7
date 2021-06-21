@@ -29,4 +29,9 @@ const Cities = {
   },
 };
 
-export {AppRoute, OfferType, CardType, Cities};
+const DateFormat = {
+  DEFAULT: 'YYYY-MM-DD',
+  HUMANIZE: 'MMMM YYYY',
+};
+
+export {AppRoute, OfferType, CardType, Cities, DateFormat};

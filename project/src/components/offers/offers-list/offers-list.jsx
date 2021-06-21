@@ -4,15 +4,25 @@ import offerProp from '../offer-card/offer-card.prop';
 import {CardType} from '../../../const';
 import PropTypes from 'prop-types';
 
+const getClassByType = (type) => {
+  switch (type) {
+    case CardType.FAVORITES:
+      return `${type}__places`;
+    case CardType.NEAR_PLACES:
+      return `${type}__list places__list`;
+    default:
+      return `${type}__places-list places__list tabs__content`;
+  }
+};
 
-function OffersList({offers, activeOffer, handleMouseEnter}) {
+function OffersList({offers, activeOffer, handleMouseEnter, type = CardType.CITIES}) {
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <div className={getClassByType(type)}>
       {
         offers.map((offer) => (
           <OfferCard
             key={offer.id}
-            cardType={CardType.CITIES}
+            cardType={type}
             offer={offer}
             isActive={offer.id === activeOffer}
             onMouseEnter={handleMouseEnter}
@@ -30,8 +40,9 @@ OffersList.propTypes = {
   activeOffer: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.shape({}),
-  ]).isRequired,
+  ]),
   handleMouseEnter: PropTypes.func,
+  type: PropTypes.string,
 };
 
 export default OffersList;
