@@ -1,6 +1,6 @@
 import React from 'react';
 import reviewProp from '../review/review-prop';
-import {getRatingPercentage} from '../../../../utils/utils';
+import {getRatingPercentage} from '../../../../utils/common';
 import {getFormatDate} from '../../../../utils/date';
 import {DateFormat} from '../../../../const';
 

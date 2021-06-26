@@ -1,6 +1,3 @@
-const MAX_PERCENTAGE = 100;
-const MAX_RATING = 5;
-
 const adaptOfferToClient = (offer) => {
   const adaptedOffer = {
     ...offer,
@@ -38,6 +35,4 @@ const adaptReviewToClient = (review) => {
   return adaptedReview;
 };
 
-const getRatingPercentage = (rating) => rating * MAX_PERCENTAGE / MAX_RATING;
-
-export {adaptOfferToClient, getRatingPercentage, adaptReviewToClient};
+export {adaptOfferToClient, adaptReviewToClient};

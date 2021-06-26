@@ -3,19 +3,20 @@ import {Link} from 'react-router-dom';
 import RoomGallery from './room-gallery/room-gallery';
 import offerProp from '../../offers/offer-card/offer-card.prop';
 import PropTypes from 'prop-types';
-import {getRatingPercentage} from '../../../utils/utils';
+import {getRatingPercentage} from '../../../utils/common';
 import {OfferType, CardType} from '../../../const';
 import RoomReviewsForm from './room-reviews-form/room-reviews-form';
 import ReviewList from './review-list/review-list';
 import reviewProp from '../room/review/review-prop';
 import Map from '../../map/map';
 import OffersList from '../../offers/offers-list/offers-list';
+import { connect } from 'react-redux';
 
 const MIN_COUNT = 1;
 const NEAR_OFFERS_MAX_COUNT = 3;
 
-function Room ({offers, filteredOffer, reviews}) {
-  const {images, description, price, maxAdults, goods, host, rating, title, type, bedrooms, isFavorite, isPremium, location, id} = filteredOffer;
+function Room ({offers, filteredOffer, reviews, activeOffer}) {
+  const {images, description, price, maxAdults, goods, host, rating, title, type, bedrooms, isFavorite, isPremium, city} = filteredOffer;
   const nearOffers = offers.slice(0, NEAR_OFFERS_MAX_COUNT);
 
   return (
@@ -135,7 +136,7 @@ function Room ({offers, filteredOffer, reviews}) {
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={offers} city={location} activeOffer={id}/>
+            <Map offers={offers} city={city} activeOffer={activeOffer}/>
           </section>
         </section>
         <div className="container">
@@ -157,6 +158,17 @@ Room.propTypes = {
   reviews:  PropTypes.arrayOf(
     PropTypes.oneOfType([reviewProp]).isRequired,
   ),
+  activeOffer: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.shape({}),
+  ]),
 };
 
-export default Room;
+const mapStateToProps = (state) => ({
+  activeOffer: state.activeOffer,
+});
+
+export {Room};
+
+export default connect(mapStateToProps)(Room);

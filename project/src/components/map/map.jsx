@@ -4,29 +4,22 @@ import 'leaflet/dist/leaflet.css';
 import PropTypes from 'prop-types';
 import useMap from '../../hooks/use-map/use-map';
 import offerProp from '../offers/offer-card/offer-card.prop';
+import cityProp from '../city/city.prop';
+import {CustomPin} from '../../const';
 
-const PinSize = {
-  WIDTH: 30,
-  HEIGHT: 30,
-};
-
-const PinUrl = {
-  DEFAULT: 'img/pin.svg',
-  ACTIVE: 'img/pin-active.svg',
-};
-
-const createPin = (pinUrl) => leaflet.icon({
-  iconUrl: pinUrl,
-  iconSize: [PinSize.WIDTH, PinSize.HEIGHT],
-  iconAnchor: [PinSize.WIDTH, PinSize.HEIGHT],
-});
 
 function Map({offers, activeOffer, city}) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+  const defaultPin = leaflet.icon(CustomPin.DEFAULT);
+  const activePin = leaflet.icon(CustomPin.ACTIVE);
 
   useEffect(() => {
+    const markers = leaflet.layerGroup();
+
     if (map) {
+      markers.addTo(map);
+
       offers.forEach(({id, location}) => {
         leaflet
           .marker({
@@ -34,14 +27,19 @@ function Map({offers, activeOffer, city}) {
             lng: location.longitude,
           }, {
             icon: id === activeOffer
-              ? createPin(PinUrl.ACTIVE)
-              : createPin(PinUrl.DEFAULT),
+              ? activePin
+              : defaultPin,
           })
-          .addTo(map);
+          .addTo(markers);
       });
 
+      map.flyTo([city.location.latitude, city.location.longitude], city.location.zoom);
     }
-  }, [map, offers, activeOffer]);
+
+    return () => {
+      markers.clearLayers();
+    };
+  }, [map, offers, city, activeOffer]);
 
   return (
     <div
@@ -60,7 +58,7 @@ Map.propTypes = {
     PropTypes.number,
     PropTypes.shape({}),
   ]),
-  city: PropTypes.objectOf(PropTypes.number.isRequired),
+  city:cityProp,
 };
 
 export default Map;
