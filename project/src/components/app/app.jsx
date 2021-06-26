@@ -17,10 +17,10 @@ function App({offers, reviews}) {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
-          <Main offers={offers}/>
+          <Main/>
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
-          <Favorites offers={offers.filter((offer) => offer.isFavorite)}/>
+          <Favorites/>
         </Route>
         <Route exect path={AppRoute.LOGIN}>
           <SignIn/>

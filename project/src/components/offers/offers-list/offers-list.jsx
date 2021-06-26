@@ -3,6 +3,8 @@ import OfferCard from '../offer-card/offer-card';
 import offerProp from '../offer-card/offer-card.prop';
 import {CardType} from '../../../const';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../../store/action';
 
 const getClassByType = (type) => {
   switch (type) {
@@ -15,7 +17,7 @@ const getClassByType = (type) => {
   }
 };
 
-function OffersList({offers, activeOffer, handleMouseEnter, type = CardType.CITIES}) {
+function OffersList({offers, handleMouseEnter, type = CardType.CITIES}) {
   return (
     <div className={getClassByType(type)}>
       {
@@ -24,7 +26,6 @@ function OffersList({offers, activeOffer, handleMouseEnter, type = CardType.CITI
             key={offer.id}
             cardType={type}
             offer={offer}
-            isActive={offer.id === activeOffer}
             onMouseEnter={handleMouseEnter}
           />
         ))
@@ -37,12 +38,17 @@ OffersList.propTypes = {
   offers: PropTypes.arrayOf(
     PropTypes.oneOfType([offerProp]).isRequired,
   ).isRequired,
-  activeOffer: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.shape({}),
-  ]),
   handleMouseEnter: PropTypes.func,
   type: PropTypes.string,
 };
 
-export default OffersList;
+
+const mapDispatchToProps = (dispatch) => ({
+  handleMouseEnter(offerId) {
+    dispatch(ActionCreator.setActiveOfferId(offerId));
+  },
+});
+
+export {OffersList};
+
+export default connect(null, mapDispatchToProps)(OffersList);

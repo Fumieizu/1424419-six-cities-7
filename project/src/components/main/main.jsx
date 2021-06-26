@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import OffersList from '../offers/offers-list/offers-list';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import offerProp from '../offers/offer-card/offer-card.prop';
 import Map from '../map/map';
 import {Cities} from '../../const';
+import CityList from '../city-list/city-list';
+import propCity from '../city/city.prop';
+import SortList from '../sort-list/sort-list';
+import {sortOffers} from '../../utils/sort';
+import Empty from '../empty/empty';
 
-function Main({offers}) {
-  const [activeOffer, setActiveOffer] = useState(0);
+function Main({offers, city, activeOffer}) {
+  const isEmpty = offers.length;
 
   return (
     <div className="page page--gray page--main">
@@ -39,75 +45,41 @@ function Main({offers}) {
         </div>
       </header>
 
-      <main className="page__main page__main--index">
+      <main className={`page page--gray page--main ${isEmpty ? '' : 'page__main--index-empty'}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to="#">
-                  <span>Paris</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to="#">
-                  <span>Cologne</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to="#">
-                  <span>Brussels</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item tabs__item--active" to="#">
-                  <span>Amsterdam</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to="#">
-                  <span>Hamburg</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to="#">
-                  <span>Dusseldorf</span>
-                </Link>
-              </li>
-            </ul>
+            <CityList />
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex="0">
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"/>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                  <li className="places__option" tabIndex="0">Price: low to high</li>
-                  <li className="places__option" tabIndex="0">Price: high to low</li>
-                  <li className="places__option" tabIndex="0">Top rated first</li>
-                </ul>
-              </form>
-              <OffersList offers={offers} activeOffer={activeOffer} handleMouseEnter={(offerId) => setActiveOffer(offerId)}/>
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map
-                  offers={offers}
-                  activeOffer={activeOffer}
-                  city={Cities.AMSTERDAM.location}
-                />
-              </section>
-            </div>
+          <div className={`cities__places-container container ${isEmpty ? '' : 'cities__places-container--empty'}`}>
+            {
+              !isEmpty
+                ? <Empty/>
+                : (
+                  <>
+                    <section className="cities__places places">
+                      <h2 className="visually-hidden">Places</h2>
+                      <b className="places__found">{offers.length} places to stay in {city}</b>
+                      <SortList key={city.name}/>
+                      <OffersList
+                        offers={offers}
+                        activeOffer={activeOffer}
+                      />
+                    </section>
+                    <div className="cities__right-section">
+                      <section className="cities__map map">
+                        <Map
+                          offers={offers}
+                          activeOffer={activeOffer}
+                          city={Cities[city.toUpperCase()]}
+                        />
+                      </section>
+                    </div>
+                  </>
+                )
+            }
           </div>
         </div>
       </main>
@@ -119,6 +91,23 @@ Main.propTypes = {
   offers: PropTypes.arrayOf(
     PropTypes.oneOfType([offerProp]).isRequired,
   ).isRequired,
+  city: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.shape(propCity),
+  ]).isRequired,
+  activeOffer: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.shape({}),
+  ]),
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  city: state.city,
+  offers: sortOffers(state.offers, state.sortType.name, state.city),
+  activeOffer: state.activeOffer,
+});
+
+export {Main};
+export default connect(mapStateToProps)(Main);

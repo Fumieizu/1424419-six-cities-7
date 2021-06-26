@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import offerProp from './offer-card.prop';
-import {getRatingPercentage} from '../../../utils/utils';
+import {getRatingPercentage} from '../../../utils/common';
 import {OfferType, AppRoute, CardType} from '../../../const';
 import PropTypes from 'prop-types';
 
@@ -16,14 +16,14 @@ const ImgSizeType = {
   },
 };
 
-function OfferCard({ offer, onMouseEnter, cardType = CardType.CITIES, isActive = false }) {
+function OfferCard({offer, onMouseEnter, cardType = CardType.CITIES}) {
   const {id, title, price, rating, type, previewImage, isPremium, isFavorite} = offer;
 
   return (
     <article
       className={`${cardType}${cardType === CardType.CITIES ? '__place-card' : '__card'} place-card`}
-      onMouseEnter={cardType === CardType.CITIES ? () => onMouseEnter(offer.id) : null}
-      onMouseLeave={cardType === CardType.CITIES ? () => onMouseEnter({}) : null}
+      onMouseEnter={cardType === CardType.FAVORITES ? null : () => onMouseEnter(offer.id)}
+      onMouseLeave={cardType === CardType.FAVORITES ? null : () => onMouseEnter({})}
     >
 
       {(isPremium && cardType === CardType.CITIES)
@@ -63,7 +63,7 @@ function OfferCard({ offer, onMouseEnter, cardType = CardType.CITIES, isActive =
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.OFFER}/${id}`}>{title} {isActive && '(active)'}</Link> {/*<-временно*/}
+          <Link to={`${AppRoute.OFFER}/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{OfferType[type]}</p>
       </div>
@@ -75,7 +75,6 @@ OfferCard.propTypes = {
   ...offerProp,
   cardType: PropTypes.string.isRequired,
   onMouseEnter: PropTypes.func,
-  isActive: PropTypes.bool,
 };
 
 export default OfferCard;
