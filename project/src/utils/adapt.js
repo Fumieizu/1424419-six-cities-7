@@ -1,4 +1,4 @@
-const adaptOfferToClient = (offer) => {
+const adaptOfferToClient = (data) => data.map((offer) => {
   const adaptedOffer = {
     ...offer,
     isFavorite: offer.is_favorite,
@@ -19,9 +19,10 @@ const adaptOfferToClient = (offer) => {
   delete adaptedOffer.preview_image;
 
   return adaptedOffer;
-};
+});
 
-const adaptReviewToClient = (review) => {
+
+const adaptReviewToClient = (data) => data.map((review) => {
   const adaptedReview = {
     ...review,
     user: {
@@ -31,8 +32,7 @@ const adaptReviewToClient = (review) => {
       name: review.user.name,
     },
   };
-
   return adaptedReview;
-};
+});
 
 export {adaptOfferToClient, adaptReviewToClient};

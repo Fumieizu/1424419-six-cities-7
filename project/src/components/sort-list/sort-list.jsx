@@ -32,7 +32,7 @@ function SortList({sortType, onSort}) {
               key={item}
               type={item}
               isActive={sortType === item}
-              onClick={clickHandler}
+              onClick={() => clickHandler(SortType[item])}
             />
           ))
         }

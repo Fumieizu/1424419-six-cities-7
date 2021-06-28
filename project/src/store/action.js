@@ -2,6 +2,9 @@ const ActionType = {
   CHANGE_CITY: 'city/changeCity',
   SORT: 'sort/setSort',
   ACTIVE_OFFER_ID: 'activePlace',
+  LOAD_OFFERS: 'data/loadOffers',
+  REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
+  LOGOUT: 'user/logout',
 };
 
 const ActionCreator = {
@@ -16,6 +19,17 @@ const ActionCreator = {
   sort: (sortType) => ({
     type: ActionType.SORT,
     payload: sortType,
+  }),
+  loadOffers: (offers) => ({
+    type: ActionType.LOAD_OFFERS,
+    payload: offers,
+  }),
+  requireAuthorization: (status) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: status,
+  }),
+  logout: () => ({
+    type: ActionType.LOGOUT,
   }),
 };
 
