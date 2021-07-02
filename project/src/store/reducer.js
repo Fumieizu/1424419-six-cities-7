@@ -13,6 +13,7 @@ const initialState = {
   activeOffer: null,
   isDataLoaded: false,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
+  userEmail: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -47,6 +48,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         authorizationStatus: AuthorizationStatus.NO_AUTH,
+      };
+    case ActionType.SET_EMAIL:
+      return {
+        ...state,
+        userEmail: action.payload,
       };
     default:
       return state;
