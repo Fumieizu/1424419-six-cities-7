@@ -5,14 +5,14 @@ import PropTypes from 'prop-types';
 import City from '../city/city';
 import cityProp from '../city/city.prop';
 
-function CityList({cities, city, onClick}) {
+function CityList({cities, activeCity, onClick}) {
   return (
     <ul className="locations__list tabs__list">
       {
         cities.map((item) => (
           <City
             key={item.name}
-            isActive={item.name === city}
+            isActive={item.name === activeCity}
             name={item.name}
             onClick={onClick}
           />
@@ -24,7 +24,7 @@ function CityList({cities, city, onClick}) {
 
 CityList.propTypes = {
   cities: PropTypes.arrayOf(cityProp),
-  city: PropTypes.oneOfType([
+  activeCity: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
     PropTypes.shape(cityProp),
@@ -33,7 +33,7 @@ CityList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  city: state.city,
+  activeCity: state.city,
   cities: state.cities,
 });
 

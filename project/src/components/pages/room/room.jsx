@@ -11,11 +11,16 @@ import reviewProp from '../room/review/review-prop';
 import Map from '../../map/map';
 import OffersList from '../../offers/offers-list/offers-list';
 import { connect } from 'react-redux';
+import LoadingScreen from '../../loading-screen/LoadingScreen';
 
 const MIN_COUNT = 1;
 const NEAR_OFFERS_MAX_COUNT = 3;
 
-function Room ({offers, filteredOffer, reviews, activeOffer}) {
+function Room ({offers, reviews, activeOffer, filteredOffer, isDataLoaded}) {
+  if (!isDataLoaded) {
+    return <LoadingScreen/>;
+  }
+
   const {images, description, price, maxAdults, goods, host, rating, title, type, bedrooms, isFavorite, isPremium, city} = filteredOffer;
   const nearOffers = offers.slice(0, NEAR_OFFERS_MAX_COUNT);
 
@@ -167,6 +172,7 @@ Room.propTypes = {
 
 const mapStateToProps = (state) => ({
   activeOffer: state.activeOffer,
+  isDataLoaded: state.isDataLoaded,
 });
 
 export {Room};

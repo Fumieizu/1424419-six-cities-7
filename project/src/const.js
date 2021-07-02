@@ -106,4 +106,18 @@ const CustomPin = {
   },
 };
 
-export {AppRoute, OfferType, CardType, Cities, DateFormat, SortType, CustomPin};
+const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
+};
+
+const APIRoute = {
+  HOTELS: '/hotels',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
+  FAVORITE: '/favorite',
+  COMMENTS: '/comments',
+};
+
+export {AppRoute, OfferType, CardType, Cities, DateFormat, SortType, CustomPin, AuthorizationStatus, APIRoute};

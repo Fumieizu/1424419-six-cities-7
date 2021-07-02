@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import Main from '../main/main';
 import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
@@ -26,9 +27,10 @@ function App({offers, reviews}) {
           <SignIn/>
         </Route>
         <Route exact path={`${AppRoute.OFFER}/:id`}
-          render={(props) => {
-            const offer = offers.find(({id}) => id.toString() === props.match.params.id);
-            return <Room filteredOffer={offer} offers={offers} reviews={reviews}/>;
+          render = {({match}) => {
+            const {id} = match.params;
+            const [filteredOffer] = offers.filter((offer) => offer.id === Number(id));
+            return <Room filteredOffer = {filteredOffer} offers = {offers} reviews = {reviews} />;
           }}
         />
         <Route>
@@ -56,4 +58,9 @@ App.propTypes = {
   ),
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+  reviews: state.reviews,
+});
+
+export default connect(mapStateToProps)(App);

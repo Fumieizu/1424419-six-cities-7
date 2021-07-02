@@ -5,6 +5,7 @@ import {CardType} from '../../../const';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../../store/action';
+import LoadingScreen from '../../loading-screen/LoadingScreen';
 
 const getClassByType = (type) => {
   switch (type) {
@@ -17,18 +18,20 @@ const getClassByType = (type) => {
   }
 };
 
-function OffersList({offers, handleMouseEnter, type = CardType.CITIES}) {
+function OffersList({offers, handleMouseEnter, type = CardType.CITIES, isDataLoaded}) {
   return (
     <div className={getClassByType(type)}>
       {
-        offers.map((offer) => (
-          <OfferCard
-            key={offer.id}
-            cardType={type}
-            offer={offer}
-            onMouseEnter={handleMouseEnter}
-          />
-        ))
+        !isDataLoaded
+          ? <LoadingScreen/>
+          : offers.map((offer) => (
+            <OfferCard
+              key={offer.id}
+              cardType={type}
+              offer={offer}
+              onMouseEnter={handleMouseEnter}
+            />
+          ))
       }
     </div>
   );
@@ -40,8 +43,12 @@ OffersList.propTypes = {
   ).isRequired,
   handleMouseEnter: PropTypes.func,
   type: PropTypes.string,
+  isDataLoaded: PropTypes.bool.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  isDataLoaded: state.isDataLoaded,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   handleMouseEnter(offerId) {
@@ -51,4 +58,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 export {OffersList};
 
-export default connect(null, mapDispatchToProps)(OffersList);
+export default connect(mapStateToProps, mapDispatchToProps)(OffersList);
