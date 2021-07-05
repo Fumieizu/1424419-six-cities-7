@@ -5,6 +5,8 @@ const ActionType = {
   LOAD_OFFERS: 'data/loadOffers',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
+  REDIRECT_TO_ROUTE: 'redirectToRoute',
+  SET_EMAIL: 'user/setEmail',
 };
 
 const ActionCreator = {
@@ -30,6 +32,14 @@ const ActionCreator = {
   }),
   logout: () => ({
     type: ActionType.LOGOUT,
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url,
+  }),
+  setEmail: (email) => ({
+    type: ActionType.SET_EMAIL,
+    payload: email,
   }),
 };
 

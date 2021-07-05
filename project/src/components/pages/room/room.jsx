@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import RoomGallery from './room-gallery/room-gallery';
 import offerProp from '../../offers/offer-card/offer-card.prop';
 import PropTypes from 'prop-types';
@@ -12,6 +11,7 @@ import Map from '../../map/map';
 import OffersList from '../../offers/offers-list/offers-list';
 import { connect } from 'react-redux';
 import LoadingScreen from '../../loading-screen/LoadingScreen';
+import Header from '../../header/header';
 
 const MIN_COUNT = 1;
 const NEAR_OFFERS_MAX_COUNT = 3;
@@ -26,34 +26,7 @@ function Room ({offers, reviews, activeOffer, filteredOffer, isDataLoaded}) {
 
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Link className="header__logo-link" to="/">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </Link>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <Link className="header__nav-link header__nav-link--profile" to="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </Link>
-                </li>
-                <li className="header__nav-item">
-                  <Link className="header__nav-link" to="#">
-                    <span className="header__signout">Sign out</span>
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
-
+      <Header/>
       <main className="page__main page__main--property">
         <section className="property">
           <RoomGallery images={images}/>

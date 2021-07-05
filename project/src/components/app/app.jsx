@@ -2,29 +2,31 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Main from '../main/main';
 import PropTypes from 'prop-types';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import Favorites from '../pages/favorites/favorites';
 import Room from '../pages/room/room';
-import SignIn from '../pages/sign-in/sign-in';
+import AuthScreen from '../pages/auth-screen/auth-screen';
 import NotFoundScreen from '../pages/not-found-screen/not-found-screen';
 import offerProp from '../offers/offer-card/offer-card.prop';
 import reviewProp from '../pages/room/review/review-prop';
+import PrivateRoute from '../private-route/private-route';
+import browserHistory from '../../services/browser-history';
 
 
 function App({offers, reviews}) {
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
           <Main/>
         </Route>
-        <Route exact path={AppRoute.FAVORITES}>
-          <Favorites/>
-        </Route>
+        <PrivateRoute exact path={AppRoute.FAVORITES}
+          render={() => <Favorites />}
+        />
         <Route exect path={AppRoute.LOGIN}>
-          <SignIn/>
+          <AuthScreen/>
         </Route>
         <Route exact path={`${AppRoute.OFFER}/:id`}
           render = {({match}) => {
