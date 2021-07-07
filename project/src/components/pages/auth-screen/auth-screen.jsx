@@ -9,7 +9,6 @@ import Header from '../../header/header';
 function AuthScreen({onSubmit, city}) {
   const loginRef = useRef();
   const passwordRef = useRef();
-
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
@@ -39,6 +38,7 @@ function AuthScreen({onSubmit, city}) {
                   className="login__input form__input"
                   type="email" name="email"
                   placeholder="Email"
+                  pattern="^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*(aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$"
                   required=""
                 />
               </div>

@@ -12,9 +12,8 @@ import {sortOffers} from '../../utils/sort';
 import Empty from '../empty/empty';
 import Header from '../header/header';
 
-function Main({offers, city, activeOffer, isDataLoaded}) {
+function Main({offers, city, activeOffer, isOffersDataLoaded}) {
   const isEmpty = offers.length;
-
   return (
     <div className="page page--gray page--main">
       <Header/>
@@ -28,7 +27,7 @@ function Main({offers, city, activeOffer, isDataLoaded}) {
         <div className="cities">
           <div className={`cities__places-container container ${isEmpty ? '' : 'cities__places-container--empty'}`}>
             {
-              !isEmpty && isDataLoaded
+              !isEmpty && isOffersDataLoaded
                 ? <Empty/>
                 : (
                   <>
@@ -36,7 +35,7 @@ function Main({offers, city, activeOffer, isDataLoaded}) {
                       <h2 className="visually-hidden">Places</h2>
                       <b className="places__found">
                         {
-                          isDataLoaded
+                          isOffersDataLoaded
                             ? `${offers.length} places to stay in ${city}`
                             : 'Loading ...'
                         }
@@ -80,14 +79,14 @@ Main.propTypes = {
     PropTypes.number,
     PropTypes.shape({}),
   ]),
-  isDataLoaded: PropTypes.bool.isRequired,
+  isOffersDataLoaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
   offers: sortOffers(state.offers, state.sortType.name, state.city),
   activeOffer: state.activeOffer,
-  isDataLoaded: state.isDataLoaded,
+  isOffersDataLoaded: state.isOffersDataLoaded,
 });
 
 export {Main};

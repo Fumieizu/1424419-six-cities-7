@@ -3,26 +3,21 @@ import RoomGallery from './room-gallery/room-gallery';
 import offerProp from '../../offers/offer-card/offer-card.prop';
 import PropTypes from 'prop-types';
 import {getRatingPercentage} from '../../../utils/common';
-import {OfferType, CardType} from '../../../const';
+import {OfferType, CardType, AuthorizationStatus} from '../../../const';
 import RoomReviewsForm from './room-reviews-form/room-reviews-form';
 import ReviewList from './review-list/review-list';
 import reviewProp from '../room/review/review-prop';
 import Map from '../../map/map';
 import OffersList from '../../offers/offers-list/offers-list';
 import { connect } from 'react-redux';
-import LoadingScreen from '../../loading-screen/LoadingScreen';
 import Header from '../../header/header';
 
 const MIN_COUNT = 1;
-const NEAR_OFFERS_MAX_COUNT = 3;
 
-function Room ({offers, reviews, activeOffer, filteredOffer, isDataLoaded}) {
-  if (!isDataLoaded) {
-    return <LoadingScreen/>;
-  }
+function Room ({nearPlaces, reviews, activeOffer, offer, authorizationStatus}) {
+  const {images, description, price, maxAdults, goods, host, rating, title, type, bedrooms, isFavorite, isPremium, city, id} = offer;
 
-  const {images, description, price, maxAdults, goods, host, rating, title, type, bedrooms, isFavorite, isPremium, city} = filteredOffer;
-  const nearOffers = offers.slice(0, NEAR_OFFERS_MAX_COUNT);
+  const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
 
   return (
     <div className="page">
@@ -109,19 +104,19 @@ function Room ({offers, reviews, activeOffer, filteredOffer, isDataLoaded}) {
               </div>
               <section className="property__reviews reviews">
                 <ReviewList reviews={reviews}/>
-                <RoomReviewsForm />
+                {isAuth ? <RoomReviewsForm id={id} /> : ''}
               </section>
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={offers} city={city} activeOffer={activeOffer}/>
+            <Map offers={nearPlaces} city={city} activeOffer={activeOffer}/>
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersList offers={nearOffers} type={CardType.NEAR_PLACES}/>
+              <OffersList offers={nearPlaces} type={CardType.NEAR_PLACES}/>
             </div>
           </section>
         </div>
@@ -132,7 +127,7 @@ function Room ({offers, reviews, activeOffer, filteredOffer, isDataLoaded}) {
 
 Room.propTypes = {
   ...offerProp,
-  filteredOffer: PropTypes.shape(offerProp).isRequired,
+  offer: PropTypes.shape(offerProp).isRequired,
   reviews:  PropTypes.arrayOf(
     PropTypes.oneOfType([reviewProp]).isRequired,
   ),
@@ -145,8 +140,9 @@ Room.propTypes = {
 
 const mapStateToProps = (state) => ({
   activeOffer: state.activeOffer,
-  isDataLoaded: state.isDataLoaded,
+  authorizationStatus: state.authorizationStatus,
 });
+
 
 export {Room};
 

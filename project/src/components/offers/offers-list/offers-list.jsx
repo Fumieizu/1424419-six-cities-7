@@ -18,11 +18,11 @@ const getClassByType = (type) => {
   }
 };
 
-function OffersList({offers, handleMouseEnter, type = CardType.CITIES, isDataLoaded}) {
+function OffersList({offers, handleMouseEnter, type = CardType.CITIES, isOffersDataLoaded}) {
   return (
     <div className={getClassByType(type)}>
       {
-        !isDataLoaded
+        !isOffersDataLoaded
           ? <LoadingScreen/>
           : offers.map((offer) => (
             <OfferCard
@@ -43,11 +43,11 @@ OffersList.propTypes = {
   ).isRequired,
   handleMouseEnter: PropTypes.func,
   type: PropTypes.string,
-  isDataLoaded: PropTypes.bool.isRequired,
+  isOffersDataLoaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  isDataLoaded: state.isDataLoaded,
+  isOffersDataLoaded: state.isOffersDataLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({
