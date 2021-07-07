@@ -1,7 +1,5 @@
 import React from 'react';
-// import {connect} from 'react-redux';
 import Main from '../main/main';
-// import PropTypes from 'prop-types';
 import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import Favorites from '../pages/favorites/favorites';
