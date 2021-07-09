@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {connect} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import PropTypes from 'prop-types';
 import {createComment} from '../../../../store/api-actions';
 import RoomRatingElement from '../room-rating-element/room-rating-element';
+import {showAlert} from '../../../../utils/toast';
 
 const RatingTitle = {
   1: 'terribly',
@@ -12,19 +13,40 @@ const RatingTitle = {
   5: 'perfect',
 };
 
-function RoomReviewsForm({id, sendComment}) {
+const CommentLength = {
+  MIN: 50,
+  MAX: 300,
+};
+
+const RATING_ERROR_MESSAGE = 'Choose rating please.';
+const ERROR_MESSAGE = 'Something went wrong, please try to post a comment later.';
+
+function RoomReviewsForm({id}) {
+  const dispatch = useDispatch();
   const [rating, setRating] = useState('');
   const [comment, setComment] = useState('');
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const onSubmitHandler = (evt) => {
     evt.preventDefault();
-    sendComment(id,{
+    setIsDisabled(true);
+
+    if (!rating) {
+      showAlert(RATING_ERROR_MESSAGE);
+      return;
+    }
+
+    dispatch(createComment(id,{
       comment: comment,
       rating: rating,
-    });
-    setRating('');
-    setComment('');
+    }))
+      .then(() => setRating(''))
+      .then(() => setComment(''))
+      .catch(() => showAlert(ERROR_MESSAGE))
+      .finally(() => setIsDisabled(false));
   };
+
+  const isValid = rating && comment.length > CommentLength.MIN && comment.length < CommentLength.MAX;
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={onSubmitHandler}>
@@ -38,6 +60,7 @@ function RoomReviewsForm({id, sendComment}) {
               title={RatingTitle[value]}
               rating={rating}
               onChangeHandler={({target}) => setRating(target.value)}
+              isDisabled={isDisabled}
             />
           ))
         }
@@ -54,7 +77,7 @@ function RoomReviewsForm({id, sendComment}) {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={!isValid || isDisabled}>Submit</button>
       </div>
     </form>
   );
@@ -62,14 +85,7 @@ function RoomReviewsForm({id, sendComment}) {
 
 RoomReviewsForm.propTypes = {
   id: PropTypes.number,
-  sendComment: PropTypes.func.isRequired,
 };
 
 
-const mapDispatchToProps = (dispatch) => ({
-  sendComment(...data) {
-    dispatch(createComment(...data));
-  },
-});
-
-export default connect(null, mapDispatchToProps)(RoomReviewsForm);
+export default RoomReviewsForm;

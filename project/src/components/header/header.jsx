@@ -1,13 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {AuthorizationStatus} from '../../const';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import SignIn from '../sign-in/sign-in';
 import SignOut from '../sign-out/sign-out';
+import {getAuthorizationStatus, getUserEmail} from '../../store/user/selectors';
 
-function Header({authorizationStatus, userEmail}) {
+function Header() {
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const userEmail = useSelector(getUserEmail);
   const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
   return (
     <header className="header">
@@ -33,15 +35,4 @@ function Header({authorizationStatus, userEmail}) {
   );
 }
 
-Header.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  userEmail: PropTypes.string,
-};
-
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  userEmail: state.userEmail,
-});
-
-export {Header};
-export default connect(mapStateToProps)(Header);
+export default Header;

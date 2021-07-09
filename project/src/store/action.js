@@ -1,4 +1,6 @@
-const ActionType = {
+import {createAction} from '@reduxjs/toolkit';
+
+export const ActionType = {
   CHANGE_CITY: 'city/changeCity',
   SORT: 'sort/setSort',
   ACTIVE_OFFER_ID: 'activePlace',
@@ -6,56 +8,60 @@ const ActionType = {
   LOAD_OFFER: 'data/loadOffer',
   LOAD_NEARBY: 'data/loadNearby',
   LOAD_REVIEWS: 'data/loadReviews',
+  LOAD_FAVORITES: 'data/loadFavorites',
+  UPDATE_DATA: 'data/updateData',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
   REDIRECT_TO_ROUTE: 'redirectToRoute',
   SET_EMAIL: 'user/setEmail',
 };
 
-const ActionCreator = {
-  changeCity: (city) => ({
-    type: ActionType.CHANGE_CITY,
-    payload: city,
-  }),
-  setActiveOfferId: (id) => ({
-    type: ActionType.ACTIVE_OFFER_ID,
-    payload: id,
-  }),
-  sort: (sortType) => ({
-    type: ActionType.SORT,
-    payload: sortType,
-  }),
-  loadOffers: (offers) => ({
-    type: ActionType.LOAD_OFFERS,
-    payload: offers,
-  }),
-  loadOffer: (offer) => ({
-    type: ActionType.LOAD_OFFER,
-    payload: offer,
-  }),
-  loadNearby: (payload) => ({
-    type: ActionType.LOAD_NEARBY,
-    payload,
-  }),
-  loadReviews: (payload) => ({
-    type: ActionType.LOAD_REVIEWS,
-    payload,
-  }),
-  requireAuthorization: (status) => ({
-    type: ActionType.REQUIRED_AUTHORIZATION,
-    payload: status,
-  }),
-  logout: () => ({
-    type: ActionType.LOGOUT,
-  }),
-  redirectToRoute: (url) => ({
-    type: ActionType.REDIRECT_TO_ROUTE,
-    payload: url,
-  }),
-  setEmail: (email) => ({
-    type: ActionType.SET_EMAIL,
-    payload: email,
-  }),
-};
+export const changeCity = createAction(ActionType.CHANGE_CITY, (payload) => ({
+  payload,
+}));
 
-export {ActionType, ActionCreator};
+export const setActiveOfferId = createAction(ActionType.ACTIVE_OFFER_ID, (payload) => ({
+  payload,
+}));
+
+export const sort = createAction(ActionType.SORT, (payload) => ({
+  payload,
+}));
+
+export const loadOffers = createAction(ActionType.LOAD_OFFERS, (payload) => ({
+  payload,
+}));
+
+export const loadOffer = createAction(ActionType.LOAD_OFFER, (payload) => ({
+  payload,
+}));
+
+export const loadNearby = createAction(ActionType.LOAD_NEARBY, (payload) => ({
+  payload,
+}));
+
+export const loadReviews = createAction(ActionType.LOAD_REVIEWS, (payload) => ({
+  payload,
+}));
+
+export const loadFavorites = createAction(ActionType.LOAD_FAVORITES, (payload) => ({
+  payload,
+}));
+
+export const updateData = createAction(ActionType.UPDATE_DATA, (payload) => ({
+  payload,
+}));
+
+export const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION, (payload) => ({
+  payload,
+}));
+
+export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (payload) => ({
+  payload,
+}));
+
+export const setEmail = createAction(ActionType.SET_EMAIL, (payload) => ({
+  payload,
+}));
+
+export const userLogout = createAction(ActionType.LOGOUT);

@@ -3,9 +3,10 @@ import OfferCard from '../offer-card/offer-card';
 import offerProp from '../offer-card/offer-card.prop';
 import {CardType} from '../../../const';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {ActionCreator} from '../../../store/action';
+import {useSelector, useDispatch} from 'react-redux';
+import {setActiveOfferId} from '../../../store/action';
 import LoadingScreen from '../../loading-screen/LoadingScreen';
+import {getIsOffersDataLoaded} from '../../../store/data/selectors';
 
 const getClassByType = (type) => {
   switch (type) {
@@ -18,7 +19,9 @@ const getClassByType = (type) => {
   }
 };
 
-function OffersList({offers, handleMouseEnter, type = CardType.CITIES, isOffersDataLoaded}) {
+function OffersList({offers, type = CardType.CITIES}) {
+  const dispatch = useDispatch();
+  const isOffersDataLoaded = useSelector(getIsOffersDataLoaded);
   return (
     <div className={getClassByType(type)}>
       {
@@ -29,7 +32,7 @@ function OffersList({offers, handleMouseEnter, type = CardType.CITIES, isOffersD
               key={offer.id}
               cardType={type}
               offer={offer}
-              onMouseEnter={handleMouseEnter}
+              onMouseEnter={(payload) => dispatch(setActiveOfferId(payload))}
             />
           ))
       }
@@ -41,21 +44,7 @@ OffersList.propTypes = {
   offers: PropTypes.arrayOf(
     PropTypes.oneOfType([offerProp]).isRequired,
   ).isRequired,
-  handleMouseEnter: PropTypes.func,
   type: PropTypes.string,
-  isOffersDataLoaded: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  isOffersDataLoaded: state.isOffersDataLoaded,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  handleMouseEnter(offerId) {
-    dispatch(ActionCreator.setActiveOfferId(offerId));
-  },
-});
-
-export {OffersList};
-
-export default connect(mapStateToProps, mapDispatchToProps)(OffersList);
+export default OffersList;
