@@ -44,4 +44,4 @@ function SortList() {
 }
 
 
-export default SortList;
+export default React.memo(SortList);

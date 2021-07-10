@@ -25,8 +25,8 @@ function OfferCard({offer, onMouseEnter, cardType = CardType.CITIES}) {
   return (
     <article
       className={`${cardType}${cardType === CardType.CITIES ? '__place-card' : '__card'} place-card`}
-      onMouseEnter={cardType === CardType.FAVORITES ? null : () => onMouseEnter(offer.id)}
-      onMouseLeave={cardType === CardType.FAVORITES ? null : () => onMouseEnter({})}
+      onMouseEnter={cardType === CardType.CITIES ? () => onMouseEnter(offer.id) : null}
+      onMouseLeave={cardType === CardType.CITIES ? () => onMouseEnter({}) : null}
     >
 
       {(isPremium && cardType === CardType.CITIES)
@@ -86,4 +86,4 @@ OfferCard.propTypes = {
   onMouseEnter: PropTypes.func,
 };
 
-export default OfferCard;
+export default React.memo(OfferCard);

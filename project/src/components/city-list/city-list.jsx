@@ -24,5 +24,5 @@ function CityList() {
   );
 }
 
-export default CityList;
+export default React.memo(CityList);
 

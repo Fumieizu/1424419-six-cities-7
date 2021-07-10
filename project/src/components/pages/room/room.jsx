@@ -11,7 +11,6 @@ import Map from '../../map/map';
 import OffersList from '../../offers/offers-list/offers-list';
 import {useSelector, useDispatch} from 'react-redux';
 import Header from '../../header/header';
-import {getActiveOffer} from '../../../store/work-process/selectors';
 import {getAuthorizationStatus} from '../../../store/user/selectors';
 import {sendFavorite} from '../../../store/api-actions';
 
@@ -20,7 +19,6 @@ const MIN_COUNT = 1;
 function Room ({nearPlaces, reviews, offer}) {
   const {images, description, price, maxAdults, goods, host, rating, title, type, bedrooms, isFavorite, isPremium, city, id} = offer;
   const dispatch = useDispatch();
-  const activeOffer = useSelector(getActiveOffer);
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
   const status = isFavorite ? '0' : '1';
@@ -121,7 +119,7 @@ function Room ({nearPlaces, reviews, offer}) {
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={nearPlaces} city={city} activeOffer={activeOffer}/>
+            <Map offers={nearPlaces} city={city} currentOffer={offer}/>
           </section>
         </section>
         <div className="container">
