@@ -81,6 +81,7 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
     })
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(redirectToRoute(AppRoute.ROOT)))
+    .then(dispatch(fetchHotelsList()))
 );
 
 export const logout = () => (dispatch, _getState, api) => (
