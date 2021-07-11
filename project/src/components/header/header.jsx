@@ -5,11 +5,11 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import SignIn from '../sign-in/sign-in';
 import SignOut from '../sign-out/sign-out';
-import {getAuthorizationStatus, getUserEmail} from '../../store/user/selectors';
+import {getAuthorizationStatus, getUser} from '../../store/user/selectors';
 
 function Header() {
   const authorizationStatus = useSelector(getAuthorizationStatus);
-  const userEmail = useSelector(getUserEmail);
+  const userEmail = useSelector(getUser).email;
   const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
   return (
     <header className="header">

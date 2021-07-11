@@ -1,6 +1,6 @@
-import {loadOffers, loadOffer, redirectToRoute, loadNearby, loadReviews, requireAuthorization, setEmail, userLogout, loadFavorites, updateData} from './action';
+import {loadOffers, loadOffer, redirectToRoute, loadNearby, loadReviews, requireAuthorization, loadUserInfo, userLogout, loadFavorites, updateData} from './action';
 import {AuthorizationStatus, APIRoute, AppRoute} from '../const';
-import {adaptOfferToClient, adaptReviewToClient} from '../utils/adapt';
+import {adaptOfferToClient, adaptReviewToClient, adaptUserInfoToClient} from '../utils/adapt';
 
 export const fetchHotelsList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.HOTELS)
@@ -68,7 +68,7 @@ export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({data}) => {
       dispatch(requireAuthorization(AuthorizationStatus.AUTH));
-      dispatch(setEmail(data.email));
+      dispatch(loadUserInfo(adaptUserInfoToClient(data)));
     })
     .catch(() => {})
 );
@@ -77,7 +77,7 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
   api.post(APIRoute.LOGIN, {email, password})
     .then(({data}) => {
       localStorage.setItem('token', data.token);
-      dispatch(setEmail(data.email));
+      dispatch(loadUserInfo(adaptUserInfoToClient(data)));
     })
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(redirectToRoute(AppRoute.ROOT)))

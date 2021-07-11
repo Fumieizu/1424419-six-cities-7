@@ -66,7 +66,7 @@ Map.propTypes = {
   offers: PropTypes.arrayOf(
     PropTypes.shape(offerProp),
   ).isRequired,
-  currentOffer: offerProp,
+  currentOffer: PropTypes.shape(offerProp),
   activeOffer: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.shape({}),

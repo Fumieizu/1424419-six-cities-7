@@ -13,7 +13,7 @@ export const ActionType = {
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
   REDIRECT_TO_ROUTE: 'redirectToRoute',
-  SET_EMAIL: 'user/setEmail',
+  LOAD_USER_INFO: 'user/loadUserInfo',
 };
 
 export const changeCity = createAction(ActionType.CHANGE_CITY, (payload) => ({
@@ -60,7 +60,7 @@ export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (paylo
   payload,
 }));
 
-export const setEmail = createAction(ActionType.SET_EMAIL, (payload) => ({
+export const loadUserInfo = createAction(ActionType.LOAD_USER_INFO, (payload) => ({
   payload,
 }));
 
