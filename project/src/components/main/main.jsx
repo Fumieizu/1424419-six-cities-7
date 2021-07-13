@@ -1,18 +1,25 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, {useMemo} from 'react';
+import {useSelector} from 'react-redux';
 import OffersList from '../offers/offers-list/offers-list';
-import PropTypes from 'prop-types';
-import offerProp from '../offers/offer-card/offer-card.prop';
 import Map from '../map/map';
 import {Cities} from '../../const';
 import CityList from '../city-list/city-list';
-import propCity from '../city/city.prop';
 import SortList from '../sort-list/sort-list';
 import {sortOffers} from '../../utils/sort';
 import Empty from '../empty/empty';
 import Header from '../header/header';
+import {getCity, getSortType, getActiveOffer} from '../../store/work-process/selectors';
+import {getOffers, getIsOffersDataLoaded} from '../../store/data/selectors';
 
-function Main({offers, city, activeOffer, isOffersDataLoaded}) {
+function Main() {
+  const city = useSelector(getCity);
+  const allOffers = useSelector(getOffers);
+  const activeOffer = useSelector(getActiveOffer);
+  const isOffersDataLoaded = useSelector(getIsOffersDataLoaded);
+  const sortType = useSelector(getSortType).name;
+
+  const offers = useMemo(() => sortOffers(allOffers, sortType, city), [allOffers, sortType, city]);
+
   const isEmpty = offers.length;
   return (
     <div className="page page--gray page--main">
@@ -65,29 +72,4 @@ function Main({offers, city, activeOffer, isOffersDataLoaded}) {
   );
 }
 
-Main.propTypes = {
-  offers: PropTypes.arrayOf(
-    PropTypes.oneOfType([offerProp]).isRequired,
-  ).isRequired,
-  city: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.shape(propCity),
-  ]).isRequired,
-  activeOffer: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.shape({}),
-  ]),
-  isOffersDataLoaded: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  city: state.city,
-  offers: sortOffers(state.offers, state.sortType.name, state.city),
-  activeOffer: state.activeOffer,
-  isOffersDataLoaded: state.isOffersDataLoaded,
-});
-
-export {Main};
-export default connect(mapStateToProps)(Main);
+export default Main;

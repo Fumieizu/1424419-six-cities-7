@@ -121,4 +121,10 @@ const APIRoute = {
   COMMENTS: '/comments',
 };
 
-export {AppRoute, OfferType, CardType, Cities, DateFormat, SortType, CustomPin, AuthorizationStatus, APIRoute};
+const NameSpace = {
+  DATA: 'DATA',
+  PROCESS: 'PROCESS',
+  USER: 'USER',
+};
+
+export {AppRoute, OfferType, CardType, Cities, DateFormat, SortType, CustomPin, AuthorizationStatus, APIRoute, NameSpace};

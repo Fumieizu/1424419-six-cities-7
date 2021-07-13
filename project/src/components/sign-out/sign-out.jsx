@@ -1,16 +1,22 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import {AppRoute} from '../../const';
 import {logout} from '../../store/api-actions';
+import {getUser} from '../../store/user/selectors';
 
-function SignOut({logoutHandler, userEmail}) {
+
+function SignOut({userEmail}) {
+  const dispatch = useDispatch();
+  const userAvatar = useSelector(getUser).avatarUrl;
   return (
     <>
       <li className="header__nav-item user">
         <Link className="header__nav-link header__nav-link--profile" to={AppRoute.FAVORITES}>
-          <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+          <div className="header__avatar-wrapper user__avatar-wrapper">
+            <img style={{ borderRadius: '50%' }} src={userAvatar} alt={'user'} />
+          </div>
           <span className="header__user-name user__name">{userEmail}</span>
         </Link>
       </li>
@@ -18,7 +24,7 @@ function SignOut({logoutHandler, userEmail}) {
         className="header__nav-item"
         onClick={(evt) => {
           evt.preventDefault();
-          logoutHandler();
+          dispatch(logout());
         }}
       >
         <a className="header__nav-link">
@@ -30,15 +36,7 @@ function SignOut({logoutHandler, userEmail}) {
 }
 
 SignOut.propTypes = {
-  logoutHandler: PropTypes.func.isRequired,
   userEmail: PropTypes.string,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  logoutHandler() {
-    dispatch(logout());
-  },
-});
-
-export {SignOut};
-export default connect(null, mapDispatchToProps)(SignOut);
+export default SignOut;

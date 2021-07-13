@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function RoomRatingElement({title, value, onChangeHandler, rating}) {
+function RoomRatingElement({title, value, onChangeHandler, rating, isDisabled}) {
   return (
     <React.Fragment>
       <input
@@ -12,6 +12,7 @@ function RoomRatingElement({title, value, onChangeHandler, rating}) {
         type="radio"
         onChange={onChangeHandler}
         checked={rating === value}
+        disabled={isDisabled}
       />
       <label htmlFor={`${value}-stars`} className="reviews__rating-label form__rating-label" title={title}>
         <svg className="form__star-image" width="37" height="33">
@@ -27,6 +28,7 @@ RoomRatingElement.propTypes = {
   title: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onChangeHandler: PropTypes.func.isRequired,
+  isDisabled: PropTypes.bool.isRequired,
 };
 
 export default RoomRatingElement;

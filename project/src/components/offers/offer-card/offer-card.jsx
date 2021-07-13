@@ -1,9 +1,11 @@
 import React from 'react';
+import {useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 import offerProp from './offer-card.prop';
 import {getRatingPercentage} from '../../../utils/common';
 import {OfferType, AppRoute, CardType} from '../../../const';
 import PropTypes from 'prop-types';
+import {sendFavorite} from '../../../store/api-actions';
 
 const ImgSizeType = {
   CITIES: {
@@ -18,12 +20,13 @@ const ImgSizeType = {
 
 function OfferCard({offer, onMouseEnter, cardType = CardType.CITIES}) {
   const {id, title, price, rating, type, previewImage, isPremium, isFavorite} = offer;
-
+  const dispatch = useDispatch();
+  const status = isFavorite ? '0' : '1';
   return (
     <article
       className={`${cardType}${cardType === CardType.CITIES ? '__place-card' : '__card'} place-card`}
-      onMouseEnter={cardType === CardType.FAVORITES ? null : () => onMouseEnter(offer.id)}
-      onMouseLeave={cardType === CardType.FAVORITES ? null : () => onMouseEnter({})}
+      onMouseEnter={cardType === CardType.CITIES ? () => onMouseEnter(offer.id) : null}
+      onMouseLeave={cardType === CardType.CITIES ? () => onMouseEnter({}) : null}
     >
 
       {(isPremium && cardType === CardType.CITIES)
@@ -49,7 +52,13 @@ function OfferCard({offer, onMouseEnter, cardType = CardType.CITIES}) {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`${isFavorite ? 'place-card__bookmark-button--active' : ''} place-card__bookmark-button button`} type="button">
+          <button
+            className={`${isFavorite ? 'place-card__bookmark-button--active' : ''} place-card__bookmark-button button`}
+            type="button"
+            onClick={() => {
+              dispatch(sendFavorite(id, status));
+            }}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"/>
             </svg>
@@ -77,4 +86,4 @@ OfferCard.propTypes = {
   onMouseEnter: PropTypes.func,
 };
 
-export default OfferCard;
+export default React.memo(OfferCard);

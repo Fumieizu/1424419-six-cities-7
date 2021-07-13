@@ -9,9 +9,7 @@ import NotFoundScreen from '../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../services/browser-history';
 
-
 function App() {
-
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
@@ -21,9 +19,9 @@ function App() {
         <PrivateRoute exact path={AppRoute.FAVORITES}
           render={() => <Favorites />}
         />
-        <Route exect path={AppRoute.LOGIN}>
-          <AuthScreen/>
-        </Route>
+        <PrivateRoute exact path={AppRoute.LOGIN} isPrivet={false}
+          render={() => <AuthScreen/>}
+        />
         <Route exact path={`${AppRoute.OFFER}/:id`}
           render = {({match}) => {
             const {id} = match.params;

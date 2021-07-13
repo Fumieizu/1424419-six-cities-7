@@ -1,17 +1,24 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {fetchNearbyList, fetchReviewsList, fetchHotel} from '../../../../store/api-actions';
-import reviewProp from '../../room/review/review-prop';
-import offerProp from '../../../offers/offer-card/offer-card.prop';
 import Room from '../room';
 import LoadingScreen from '../../../loading-screen/LoadingScreen';
+import {getOffer, getReviews, getNearPlaces, getIsNearPlacesDataLoaded, getIsOfferDataLoaded, getIsReviewsDataLoaded} from '../../../../store/data/selectors';
 
-function RoomWrapper({offer, offerId, reviews, nearPlaces, getNearPlacesDate, getReviewsDate, getOfferDate, isNearPlacesDataLoaded, isOfferDataLoaded, isReviewsDataLoaded}) {
+function RoomWrapper({offerId}) {
+  const dispatch = useDispatch();
+  const offer = useSelector(getOffer);
+  const reviews = useSelector(getReviews);
+  const nearPlaces = useSelector(getNearPlaces);
+  const isNearPlacesDataLoaded = useSelector(getIsNearPlacesDataLoaded);
+  const isOfferDataLoaded = useSelector(getIsOfferDataLoaded);
+  const isReviewsDataLoaded = useSelector(getIsReviewsDataLoaded);
+
   useEffect(() => {
-    getOfferDate(offerId);
-    getNearPlacesDate(offerId);
-    getReviewsDate(offerId);
+    dispatch(fetchHotel(offerId));
+    dispatch(fetchNearbyList(offerId));
+    dispatch(fetchReviewsList(offerId));
   }, [offerId]);
 
   const isLoad = isNearPlacesDataLoaded && isOfferDataLoaded && isReviewsDataLoaded;
@@ -23,39 +30,8 @@ function RoomWrapper({offer, offerId, reviews, nearPlaces, getNearPlacesDate, ge
 }
 
 RoomWrapper.propTypes = {
-  offer: PropTypes.object,
-  offerId: PropTypes.string,
-  reviews: PropTypes.arrayOf(reviewProp),
-  nearPlaces: PropTypes.arrayOf(offerProp),
-  getNearPlacesDate: PropTypes.func,
-  getReviewsDate: PropTypes.func,
-  getOfferDate: PropTypes.func.isRequired,
-  isNearPlacesDataLoaded: PropTypes.bool,
-  isOfferDataLoaded: PropTypes.bool,
-  isReviewsDataLoaded: PropTypes.bool,
+  offerId: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  offer: state.offer,
-  reviews: state.reviews,
-  nearPlaces: state.nearPlaces,
-  isNearPlacesDataLoaded: state.isNearPlacesDataLoaded,
-  isOfferDataLoaded: state.isOfferDataLoaded,
-  isReviewsDataLoaded: state.isReviewsDataLoaded,
-});
 
-const mapDispatchToProps = (dispatch) => ({
-  getNearPlacesDate(id) {
-    dispatch(fetchNearbyList(id));
-  },
-  getReviewsDate(id) {
-    dispatch(fetchReviewsList(id));
-  },
-  getOfferDate(id) {
-    dispatch(fetchHotel(id));
-  },
-});
-
-export {RoomWrapper};
-
-export default connect(mapStateToProps, mapDispatchToProps)(RoomWrapper);
+export default RoomWrapper;

@@ -1,21 +1,23 @@
 import React, { useRef } from 'react';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
-import PropTypes from 'prop-types';
 import {login} from '../../../store/api-actions';
 import {AppRoute} from '../../../const';
 import Header from '../../header/header';
+import {getCity} from '../../../store/work-process/selectors';
 
-function AuthScreen({onSubmit, city}) {
+function AuthScreen() {
+  const dispatch = useDispatch();
+  const city = useSelector(getCity);
   const loginRef = useRef();
   const passwordRef = useRef();
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    onSubmit({
+    dispatch(login({
       login: loginRef.current.value,
       password: passwordRef.current.value,
-    });
+    }));
   };
 
   return (
@@ -69,20 +71,4 @@ function AuthScreen({onSubmit, city}) {
   );
 }
 
-AuthScreen.propTypes = {
-  city: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = ({city}) => ({
-  city,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(authData) {
-    dispatch(login(authData));
-  },
-});
-
-export {AuthScreen};
-export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen);
+export default AuthScreen;

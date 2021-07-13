@@ -8,7 +8,7 @@ import cityProp from '../city/city.prop';
 import {CustomPin} from '../../const';
 
 
-function Map({offers, activeOffer, city}) {
+function Map({offers, activeOffer, city, currentOffer = null}) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
   const defaultPin = leaflet.icon(CustomPin.DEFAULT);
@@ -33,6 +33,17 @@ function Map({offers, activeOffer, city}) {
           .addTo(markers);
       });
 
+      if (currentOffer !== null) {
+        leaflet
+          .marker({
+            lat: currentOffer.location.latitude,
+            lng: currentOffer.location.longitude,
+          }, {
+            icon: activePin,
+          })
+          .addTo(markers);
+      }
+
       map.flyTo([city.location.latitude, city.location.longitude], city.location.zoom);
     }
 
@@ -40,6 +51,7 @@ function Map({offers, activeOffer, city}) {
       markers.clearLayers();
     };
   }, [map, offers, city, activeOffer]);
+
 
   return (
     <div
@@ -54,6 +66,7 @@ Map.propTypes = {
   offers: PropTypes.arrayOf(
     PropTypes.shape(offerProp),
   ).isRequired,
+  currentOffer: PropTypes.shape(offerProp),
   activeOffer: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.shape({}),

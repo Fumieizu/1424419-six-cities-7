@@ -9,15 +9,19 @@ import ReviewList from './review-list/review-list';
 import reviewProp from '../room/review/review-prop';
 import Map from '../../map/map';
 import OffersList from '../../offers/offers-list/offers-list';
-import { connect } from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import Header from '../../header/header';
+import {getAuthorizationStatus} from '../../../store/user/selectors';
+import {sendFavorite} from '../../../store/api-actions';
 
 const MIN_COUNT = 1;
 
-function Room ({nearPlaces, reviews, activeOffer, offer, authorizationStatus}) {
+function Room ({nearPlaces, reviews, offer}) {
   const {images, description, price, maxAdults, goods, host, rating, title, type, bedrooms, isFavorite, isPremium, city, id} = offer;
-
+  const dispatch = useDispatch();
+  const authorizationStatus = useSelector(getAuthorizationStatus);
   const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
+  const status = isFavorite ? '0' : '1';
 
   return (
     <div className="page">
@@ -38,7 +42,13 @@ function Room ({nearPlaces, reviews, activeOffer, offer, authorizationStatus}) {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={`${isFavorite ? 'property__bookmark-button--active' : ''} property__bookmark-button button`} type="button">
+                <button
+                  className={`${isFavorite ? 'property__bookmark-button--active' : ''} property__bookmark-button button`}
+                  type="button"
+                  onClick={() => {
+                    dispatch(sendFavorite(id, status));
+                  }}
+                >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"/>
                   </svg>
@@ -109,7 +119,7 @@ function Room ({nearPlaces, reviews, activeOffer, offer, authorizationStatus}) {
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={nearPlaces} city={city} activeOffer={activeOffer}/>
+            <Map offers={nearPlaces} city={city} currentOffer={offer}/>
           </section>
         </section>
         <div className="container">
@@ -131,19 +141,6 @@ Room.propTypes = {
   reviews:  PropTypes.arrayOf(
     PropTypes.oneOfType([reviewProp]).isRequired,
   ),
-  activeOffer: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.shape({}),
-  ]),
 };
 
-const mapStateToProps = (state) => ({
-  activeOffer: state.activeOffer,
-  authorizationStatus: state.authorizationStatus,
-});
-
-
-export {Room};
-
-export default connect(mapStateToProps)(Room);
+export default Room;
