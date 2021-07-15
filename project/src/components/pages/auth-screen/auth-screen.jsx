@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {login} from '../../../store/api-actions';
 import {AppRoute} from '../../../const';
-import Header from '../../header/header';
+import Header from '../../elements/header/header';
 import {getCity} from '../../../store/work-process/selectors';
 
 function AuthScreen() {

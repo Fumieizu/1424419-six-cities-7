@@ -1,12 +1,12 @@
 import React from 'react';
-import Main from '../main/main';
+import Main from '../pages/main/main';
 import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import Favorites from '../pages/favorites/favorites';
-import RoomWrapper from '../pages/room/room-wrapper/room-wrapper';
+import RoomWrapper from '../elements/room-wrapper/room-wrapper';
 import AuthScreen from '../pages/auth-screen/auth-screen';
 import NotFoundScreen from '../pages/not-found-screen/not-found-screen';
-import PrivateRoute from '../private-route/private-route';
+import PrivateRoute from '../elements/private-route/private-route';
 import browserHistory from '../../services/browser-history';
 
 function App() {

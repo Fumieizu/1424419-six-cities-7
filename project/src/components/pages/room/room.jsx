@@ -1,16 +1,16 @@
 import React from 'react';
-import RoomGallery from './room-gallery/room-gallery';
-import offerProp from '../../offers/offer-card/offer-card.prop';
+import RoomGallery from '../../elements/room-gallery/room-gallery';
+import offerProp from '../../elements/offer-card/offer-card.prop';
 import PropTypes from 'prop-types';
 import {getRatingPercentage} from '../../../utils/common';
 import {OfferType, CardType, AuthorizationStatus} from '../../../const';
-import RoomReviewsForm from './room-reviews-form/room-reviews-form';
-import ReviewList from './review-list/review-list';
-import reviewProp from '../room/review/review-prop';
-import Map from '../../map/map';
-import OffersList from '../../offers/offers-list/offers-list';
+import RoomReviewsForm from '../../elements/room-reviews-form/room-reviews-form';
+import ReviewList from '../../elements/review-list/review-list';
+import reviewProp from '../../elements/review/review-prop';
+import Map from '../../elements/map/map';
+import OffersList from '../../elements/offers-list/offers-list';
 import {useSelector, useDispatch} from 'react-redux';
-import Header from '../../header/header';
+import Header from '../../elements/header/header';
 import {getAuthorizationStatus} from '../../../store/user/selectors';
 import {sendFavorite} from '../../../store/api-actions';
 

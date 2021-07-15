@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import {Link} from 'react-router-dom';
-import FavoritesList from './favorites-list/favorites-list';
-import FavoritesEmpty from './favorites-empty/favorites-empty';
+import FavoritesList from '../../elements/favorites-list/favorites-list';
+import FavoritesEmpty from '../../elements/favorites-empty/favorites-empty';
 import {useSelector, useDispatch} from 'react-redux';
-import Header from '../../header/header';
+import Header from '../../elements/header/header';
 import {getFavorites} from '../../../store/data/selectors';
 import {fetchFavoritesList} from '../../../store/api-actions';
 
