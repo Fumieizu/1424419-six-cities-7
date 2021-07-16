@@ -1,4 +1,7 @@
 const adaptOfferToClient = (offer) => {
+  if (offer?.fake) {
+    return offer;
+  }
   const adaptedOffer = {
     ...offer,
     isFavorite: offer.is_favorite,
@@ -23,6 +26,10 @@ const adaptOfferToClient = (offer) => {
 
 
 const adaptReviewToClient = (review) => {
+  if (review?.fake) {
+    return review;
+  }
+
   const adaptedReview = {
     ...review,
     user: {
@@ -36,6 +43,10 @@ const adaptReviewToClient = (review) => {
 };
 
 const adaptUserInfoToClient = (userInfo) => {
+  if (userInfo?.fake) {
+    return userInfo;
+  }
+
   const adaptedUserInfo = {
     ...userInfo,
     avatarUrl: userInfo.avatar_url,

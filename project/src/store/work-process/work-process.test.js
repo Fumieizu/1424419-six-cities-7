@@ -1,5 +1,5 @@
 import {workProcess} from './work-process';
-import {ActionType, setActiveOfferId} from '../action';
+import {ActionType} from '../action';
 import {Cities, SortType} from '../../const';
 
 describe('Work Process', () => {
