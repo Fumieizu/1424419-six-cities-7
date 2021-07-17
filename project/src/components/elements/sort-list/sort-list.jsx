@@ -34,7 +34,7 @@ function SortList() {
               key={item}
               type={item}
               isActive={sortType === item}
-              onClick={() => clickHandler(SortType[item])}
+              onClick={clickHandler}
             />
           ))
         }

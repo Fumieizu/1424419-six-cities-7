@@ -31,7 +31,7 @@ describe('Data', () => {
     const expectedAction = {
       offers: offers,
       isOffersDataLoaded: true,
-    }
+    };
     expect(data(state, loadOffersAction)).toEqual(expectedAction);
   });
 
@@ -57,7 +57,7 @@ describe('Data', () => {
       reviews: [],
       isReviewsDataLoaded: false,
     };
-    const reviews = [{}, {}, {}]
+    const reviews = [{}, {}, {}];
     const loadReviewsAction = {
       type: ActionType.LOAD_REVIEWS,
       payload: reviews,

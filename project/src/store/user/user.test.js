@@ -1,5 +1,5 @@
 import {user} from './user';
-import {ActionType, loadUserInfo, requireAuthorization} from '../action';
+import {ActionType} from '../action';
 import {AuthorizationStatus} from '../../const';
 
 describe('User', () => {

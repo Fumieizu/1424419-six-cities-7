@@ -12,7 +12,7 @@ import {
   createComment,
   checkAuth,
   login,
-  logout,
+  logout
 } from './api-actions';
 
 let api = null;
@@ -26,7 +26,6 @@ describe('Async operations', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const checkAuthLoader = checkAuth();
-    const fakeUser = {fake: true};
 
     apiMock
       .onGet(APIRoute.LOGIN)
@@ -206,7 +205,7 @@ describe('Async operations', () => {
       comment: 'Test msg',
       rating: 5,
     };
-    const createCommentLoader = createComment(fakeId, fakeMessage)
+    const createCommentLoader = createComment(fakeId, fakeMessage);
 
     apiMock
       .onPost(`${APIRoute.COMMENTS}/${fakeId}`, fakeMessage)

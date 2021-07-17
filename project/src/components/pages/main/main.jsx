@@ -35,7 +35,7 @@ function Main() {
           <div className={`cities__places-container container ${isEmpty ? '' : 'cities__places-container--empty'}`}>
             {
               !isEmpty && isOffersDataLoaded
-                ? <Empty/>
+                ? <Empty city={city}/>
                 : (
                   <>
                     <section className="cities__places places">

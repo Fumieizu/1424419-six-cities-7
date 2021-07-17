@@ -7,7 +7,7 @@ function SortItem({type, isActive, onClick}) {
     <li
       className={`places__option ${isActive ? 'places__option--active' : ''}`}
       tabIndex="0"
-      onClick={onClick}
+      onClick={() => onClick(SortType[type])}
     >
       {SortType[type].text}
     </li>

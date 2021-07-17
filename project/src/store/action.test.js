@@ -65,7 +65,7 @@ describe('Actions', () => {
   });
 
   it('action creator for load nearby offers returns correct action', () => {
-    const nearbyOffers = [{}, {}, {},];
+    const nearbyOffers = [{}, {}, {}];
     const expectedAction = {
       type: ActionType.LOAD_NEARBY,
       payload: nearbyOffers,

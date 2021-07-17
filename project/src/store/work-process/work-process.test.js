@@ -53,7 +53,7 @@ describe('Work Process', () => {
 
     const setActiveOfferIdAction = {
       type: ActionType.ACTIVE_OFFER_ID,
-      payload: activeOffer
+      payload: activeOffer,
     };
     const expectedAction = {
       activeOffer: activeOffer,

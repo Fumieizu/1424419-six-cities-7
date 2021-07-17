@@ -3,7 +3,7 @@ import './LoadingScreen.css';
 
 function LoadingScreen() {
   return (
-    <div className="lds-ring">
+    <div className="lds-ring" data-testid="loading-id">
       <div></div>
       <div></div>
       <div></div>
