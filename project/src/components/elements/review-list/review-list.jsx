@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import reviewProp from '../review/review-prop';
 import Review from '../review/review';
-import {diffDate} from '../../../utils/date';
+import {getDiffDate} from '../../../utils/date';
 
 const REVIEWS_MAX_COUNT = 10;
 
 const getSortedReviewsByDate = (reviews) => {
   const sortedReviews = reviews.slice()
-    .sort((a, b) => diffDate(b.date, a.date));
+    .sort((a, b) => getDiffDate(b.date, a.date));
 
   if (sortedReviews.length > REVIEWS_MAX_COUNT) {
     return sortedReviews.slice(0, REVIEWS_MAX_COUNT);

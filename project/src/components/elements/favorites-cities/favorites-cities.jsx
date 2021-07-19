@@ -22,9 +22,10 @@ function FavoritesCities({city, offers}) {
 
 FavoritesCities.propTypes = {
   city: PropTypes.string.isRequired,
-  offers: PropTypes.arrayOf(
-    PropTypes.oneOfType([offerProp]).isRequired,
-  ).isRequired,
+  offers: PropTypes.oneOfType([
+    PropTypes.arrayOf(offerProp),
+    PropTypes.shape([]),
+  ]).isRequired,
 };
 
 export default FavoritesCities;

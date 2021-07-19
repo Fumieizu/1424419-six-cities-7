@@ -19,7 +19,7 @@ function RoomWrapper({offerId}) {
     dispatch(fetchHotel(offerId));
     dispatch(fetchNearbyList(offerId));
     dispatch(fetchReviewsList(offerId));
-  }, [offerId]);
+  }, [offerId, dispatch]);
 
   const isLoad = isNearPlacesDataLoaded && isOfferDataLoaded && isReviewsDataLoaded;
 

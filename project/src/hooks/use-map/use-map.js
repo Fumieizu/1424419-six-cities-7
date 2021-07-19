@@ -24,7 +24,7 @@ function useMap(mapRef, city) {
 
       setMap(newMap);
     }
-  }, [mapRef, map, city]);
+  }, [location.latitude, location.longitude, location.zoom, mapRef, map, city]);
 
   return map;
 }

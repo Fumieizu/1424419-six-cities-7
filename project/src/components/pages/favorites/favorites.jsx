@@ -4,17 +4,24 @@ import FavoritesList from '../../elements/favorites-list/favorites-list';
 import FavoritesEmpty from '../../elements/favorites-empty/favorites-empty';
 import {useSelector, useDispatch} from 'react-redux';
 import Header from '../../elements/header/header';
-import {getFavorites} from '../../../store/data/selectors';
+import LoadingScreen from '../../elements/loading-screen/LoadingScreen';
+import {getFavorites, getIsFavoritesDataLoaded} from '../../../store/data/selectors';
 import {fetchFavoritesList} from '../../../store/api-actions';
 
 function Favorites() {
   const dispatch = useDispatch();
   const offers = useSelector(getFavorites);
+  const isLoad = useSelector(getIsFavoritesDataLoaded);
   const isEmpty = offers.length === 0;
 
   useEffect(() => {
     dispatch(fetchFavoritesList());
-  }, []);
+  }, [dispatch]);
+
+  if (!isLoad) {
+    return <LoadingScreen/>;
+  }
+
   return (
     <div className={`page ${isEmpty ? 'page--favorites-empty' : ''}`}>
       <Header/>

@@ -57,6 +57,7 @@ function AuthScreen() {
                   placeholder="Password"
                   required=""
                   data-testid="password"
+                  pattern="^[^\s]+(\s.*)?$"
                 />
               </div>
               <button

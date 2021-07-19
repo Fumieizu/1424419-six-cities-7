@@ -25,7 +25,10 @@ function FavoritesList({offers}) {
 }
 
 FavoritesList.propTypes = {
-  offers: PropTypes.arrayOf(offerProp).isRequired,
+  offers: PropTypes.oneOfType([
+    PropTypes.arrayOf(offerProp),
+    PropTypes.shape([]),
+  ]).isRequired,
 };
 
 export default FavoritesList;
