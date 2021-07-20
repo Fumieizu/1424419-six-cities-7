@@ -28,6 +28,8 @@ describe('Component: PrivateRouter', () => {
           <PrivateRoute
             exact
             path="/private"
+            isAuth = {false}
+            redirectPath = {'/login'}
             render={() => (<h1>Private Route</h1>)}
           />
         </Router>
@@ -50,6 +52,8 @@ describe('Component: PrivateRouter', () => {
           <PrivateRoute
             exact
             path="/private"
+            isAuth
+            redirectPath = {'/login'}
             render={() => (<h1>Private Route</h1>)}
           />
         </Router>

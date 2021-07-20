@@ -42,7 +42,7 @@ function OfferCard({offer, onMouseEnter, cardType = CardType.CITIES}) {
             src={previewImage}
             width={cardType === CardType.FAVORITES ? ImgSizeType.FAVORITES.width : ImgSizeType.CITIES.width}
             height={cardType === CardType.FAVORITES ? ImgSizeType.FAVORITES.height : ImgSizeType.CITIES.height}
-            alt="Place image"
+            alt="Place"
           />
         </Link>
       </div>

@@ -50,7 +50,7 @@ function Map({offers, activeOffer, city, currentOffer = null}) {
     return () => {
       markers.clearLayers();
     };
-  }, [map, offers, city, activeOffer]);
+  }, [map, offers, city, activeOffer, activePin, currentOffer, defaultPin]);
 
 
   return (
