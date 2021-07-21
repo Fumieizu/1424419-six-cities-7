@@ -23,4 +23,4 @@ City.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-export default City;
+export default React.memo(City);

@@ -20,14 +20,13 @@ function SignOut({userEmail}) {
           <span className="header__user-name user__name">{userEmail}</span>
         </Link>
       </li>
-      <li
-        className="header__nav-item"
-        onClick={(evt) => {
-          evt.preventDefault();
-          dispatch(logout());
-        }}
-      >
-        <Link to="#" className="header__nav-link">
+      <li className="header__nav-item">
+        <Link to="#" className="header__nav-link"
+          onClick={(evt) => {
+            evt.preventDefault();
+            dispatch(logout());
+          }}
+        >
           <span className="header__signout">Sign out</span>
         </Link>
       </li>

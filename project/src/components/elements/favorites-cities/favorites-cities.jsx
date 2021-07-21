@@ -24,7 +24,7 @@ FavoritesCities.propTypes = {
   city: PropTypes.string.isRequired,
   offers: PropTypes.oneOfType([
     PropTypes.arrayOf(offerProp),
-    PropTypes.shape([]),
+    PropTypes.shape({}),
   ]).isRequired,
 };
 

@@ -4,7 +4,7 @@ import FavoritesList from '../../elements/favorites-list/favorites-list';
 import FavoritesEmpty from '../../elements/favorites-empty/favorites-empty';
 import {useSelector, useDispatch} from 'react-redux';
 import Header from '../../elements/header/header';
-import LoadingScreen from '../../elements/loading-screen/LoadingScreen';
+import LoadingScreen from '../../elements/loading-screen/loading-screen';
 import {getFavorites, getIsFavoritesDataLoaded} from '../../../store/data/selectors';
 import {fetchFavoritesList} from '../../../store/api-actions';
 

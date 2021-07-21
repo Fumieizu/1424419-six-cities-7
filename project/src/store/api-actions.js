@@ -47,9 +47,12 @@ export const fetchFavoritesList = () => (dispatch, _getState, api) => (
     .catch(() => dispatch(redirectToRoute(APIRoute.LOGIN)))
 );
 
-export const sendFavorite = (id, status) => (dispatch, _getState, api) => (
+export const sendFavorite = (id, status, isNeedUpdateCurrentOffer = false) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.FAVORITE}/${id}/${status}`)
     .then(({data}) => {
+      if (isNeedUpdateCurrentOffer) {
+        dispatch(loadOffer(adaptOfferToClient(data)));
+      }
       dispatch(updateData(adaptOfferToClient(data)));
     })
     .catch(() => dispatch(redirectToRoute(AppRoute.LOGIN)))

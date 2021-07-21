@@ -5,7 +5,7 @@ import {CardType} from '../../../const';
 import PropTypes from 'prop-types';
 import {useSelector, useDispatch} from 'react-redux';
 import {setActiveOfferId} from '../../../store/action';
-import LoadingScreen from '../loading-screen/LoadingScreen';
+import LoadingScreen from '../loading-screen/loading-screen';
 import {getIsOffersDataLoaded} from '../../../store/data/selectors';
 
 const getClassByType = (type) => {

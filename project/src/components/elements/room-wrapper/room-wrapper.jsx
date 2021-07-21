@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchNearbyList, fetchReviewsList, fetchHotel} from '../../../store/api-actions';
 import Room from '../../pages/room/room';
-import LoadingScreen from '../loading-screen/LoadingScreen';
+import LoadingScreen from '../loading-screen/loading-screen';
 import {getOffer, getReviews, getNearPlaces, getIsNearPlacesDataLoaded, getIsOfferDataLoaded, getIsReviewsDataLoaded} from '../../../store/data/selectors';
 
 function RoomWrapper({offerId}) {

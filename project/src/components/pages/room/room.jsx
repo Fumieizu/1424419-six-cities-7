@@ -46,7 +46,7 @@ function Room ({nearPlaces, reviews, offer}) {
                   className={`${isFavorite ? 'property__bookmark-button--active' : ''} property__bookmark-button button`}
                   type="button"
                   onClick={() => {
-                    dispatch(sendFavorite(id, status));
+                    dispatch(sendFavorite(id, status, true));
                   }}
                 >
                   <svg className="property__bookmark-icon" width="31" height="33">
