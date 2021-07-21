@@ -37,9 +37,9 @@ const data = createReducer(initialState, (builder) => {
       state.isFavoritesDataLoaded = true;
     })
     .addCase(updateData, (state, {payload}) => {
+      state.offers = state.offers.map((offer) => offer.id === payload.id ? payload : offer);
       state.nearPlaces = state.nearPlaces.map((offer) => offer.id === payload.id ? payload : offer);
       state.favorites = state.offers.filter((offer) => offer.isFavorite);
-      state.offers = state.offers.map((offer) => offer.id === payload.id ? payload : offer);
     });
 });
 
